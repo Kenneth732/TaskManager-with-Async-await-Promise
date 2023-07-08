@@ -25,3 +25,45 @@ document.querySelector('#form').addEventListener('submit', async (e) => {
     taskInput.value = '';
 });
 
+
+// Function to display the tasks
+async function displayTasks(tasks) {
+    return new Promise(resolve => {
+        // Get the element where the task list will be displayed
+        let taskListElement = document.getElementById('taskList');
+
+        // Clear any existing content
+        taskListElement.innerHTML = '';
+
+        // Iterate over the tasks array and generate HTML for each task
+        tasks.forEach((task, index) => {
+            let taskElement = document.createElement('li');
+            taskElement.textContent = task.name;
+
+            // Add 'completed' class if the task is marked as completed
+            if (task.completed) {
+                taskElement.classList.add('completed');
+            }
+
+            // Add delete button
+            let deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', () => {
+                deleteTask(index);
+            });
+            taskElement.appendChild(deleteButton);
+
+            // Add edit button
+            let editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.addEventListener('click', () => {
+                editTask(index);
+            });
+            taskElement.appendChild(editButton);
+
+            taskListElement.appendChild(taskElement);
+        });
+
+        resolve();
+    });
+}
