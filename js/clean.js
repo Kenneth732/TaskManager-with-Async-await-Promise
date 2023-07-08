@@ -67,3 +67,21 @@ async function displayTasks(tasks) {
         resolve();
     });
 }
+
+// Function to delete a task
+function deleteTask(index) {
+    taskList.splice(index, 1);
+    displayTasks(taskList);
+}
+
+// Function to edit a task
+function editTask(index) {
+    let newTaskName = prompt('Enter new task name:');
+    if (newTaskName !== null) {
+        taskList[index].name = newTaskName;
+        displayTasks(taskList);
+    }
+}
+
+// Call the displayTasks function initially to show any existing tasks
+displayTasks(taskList);
